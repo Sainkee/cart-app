@@ -6,7 +6,7 @@ let arr = [
   {
     id: 1,
     price: 100,
-    quantity: 4,
+    quantity: 0,
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ let arr = [
   },
 ];
 window.onload = function (params) {
-  displayCard();
+  displayCart();
   displayList();
   priceCalculator();
 };
@@ -31,14 +31,14 @@ function displayList(params) {
   arr.forEach((element) => {
     products.innerHTML += `
         <div
-        id="${element.id}"  class="flex bg-slate-500 justify-between px-2 py-2 gap-4 productItem"
+        "  class="flex bg-slate-500 justify-between px-2 py-2 gap-4 productItem"
           >
             <span class="">Product-${element.id}</span>
             <span>${element.price}</span>
-            <span class="bg-teal-800 rounded-[34px] px-2 gap-4 flex cursor-pointer ">
-              <span class="minus">-</span>
+            <span  class="bg-teal-800 rounded-[34px] px-2 gap-4 flex cursor-pointer ">
+              <span id="${element.id}"class="minus">-</span>
               <span class="num">${element.quantity}</span>
-              <span class="plus">+</span>
+              <span id="${element.id}" class="plus">+</span>
             </span>
           </div>
         
@@ -46,9 +46,16 @@ function displayList(params) {
   });
 }
 
-function displayCard(params) {
+function displayCart(params) {
   carts.innerHTML = "";
   let filterdata = arr.filter((ele) => ele.quantity > 0);
+  if (filterdata.length == 0) {
+    carts.innerHTML = ` <div
+    class="flex bg-slate-500 justify-between px-2 py-2 gap-4 productItem min-w-[200px] ">
+        <span class="text-red-500">No Product added to the cart</span>
+  </div>
+  `;
+  }
 
   filterdata.forEach((element) => {
     carts.innerHTML += `
@@ -57,7 +64,7 @@ function displayCard(params) {
   >
     <span class="">Product-${element.id}</span>
 
-    <span class="bg-teal-800 rounded-[34px] px-2 gap-2 flex">
+    <span  class="bg-teal-800 rounded-[34px] px-2 gap-2 flex">
       <span>${element.quantity}</span>
       <span class="count">x</span>
       <span class="count">${element.price}</span>
@@ -78,18 +85,21 @@ function priceCalculator() {
 
 products.addEventListener("click", (e) => {
   if (e.target.classList.contains("minus")) {
+    console.log();
     const quantityElement = e.target.parentElement.querySelector(".num");
     if (Number(quantityElement.innerText) <= 0) {
       return;
     }
 
+    arr[e.target.id - 1].quantity -= 1;
     quantityElement.innerText = Number(quantityElement.innerText) - 1;
   }
   if (e.target.classList.contains("plus")) {
     const quantityElement = e.target.parentElement.querySelector(".num");
     quantityElement.innerText = Number(quantityElement.innerText) + 1;
+    arr[e.target.id - 1].quantity += 1;
   }
 
-  displayCard();
+  displayCart();
   priceCalculator();
 });
