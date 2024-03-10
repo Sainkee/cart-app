@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="output.css" />
+    <title>cart</title>
+  </head>
+  <body class="bg-slate-600 min-h-dvh">
+    <div
+      class="box flex justify-center text-center flex-col md:flex-row gap-10 m-[10px] md:m-[100px]"
+    >
+      <div class="border p-5 text-white">
+        <p class="text-3xl text-black">Products</p>
+        <div class="productList mt-5 flex flex-col justify-between"></div>
+      </div>
+
+      <!-- cart statrt================================================= -->
+
+      <div class="cart border p-5 text-white">
+        <p class="text-3xl text-black">Cart</p>
+
+        <div class="flex justify-between flex-col">
+          <div class="cartList mt-5 flex flex-col"></div>
+          <div
+            class="flex bg-slate-500 px-2 py-2 gap-4 justify-between min-w-[200px]"
+          >
+            <span class="">Total :</span>
+
+            <span class="bg-teal-800 rounded-[34px] px-5 gap-4 flex total">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
